@@ -1,0 +1,21 @@
+#MenuButton{
+    -fx-background-color: black;
+    -fx-background-radius: 15;
+    -fx-font-size: 25;
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+    -fx-pref-width: 300;
+    -fx-pref-height: 50;
+}
+
+
+
+#MenuButtonHighlighted{
+    -fx-background-color: #141414;
+    -fx-background-radius: 15;
+    -fx-font-size: 25;
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+    -fx-pref-width: 300;
+    -fx-pref-height: 50;
+}

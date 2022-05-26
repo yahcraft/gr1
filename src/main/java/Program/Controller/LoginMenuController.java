@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class LoginMenuController {
-    private LoginMenu menu;
-    private LoginMenuView view;
+    private static LoginMenu menu;
+    private static LoginMenuView view;
 
 
 
@@ -83,7 +83,7 @@ public class LoginMenuController {
 
 
 
-    public void exit()
+    public static void exit()
     {
         menu.save();
         view.getStage().close();

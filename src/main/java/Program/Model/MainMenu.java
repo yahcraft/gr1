@@ -1,7 +1,7 @@
 package Program.Model;
 
 public class MainMenu {
-    User user;
+    private User user;
 
 
 
@@ -11,5 +11,12 @@ public class MainMenu {
     public MainMenu(User user)
     {
         this.user = user;
+    }
+
+
+
+    public User getUser()
+    {
+        return user;
     }
 }

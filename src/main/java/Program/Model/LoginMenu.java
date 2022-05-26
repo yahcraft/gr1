@@ -1,16 +1,21 @@
 package Program.Model;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginMenu {
-    ArrayList<User> users;
+    private static ArrayList<User> users;
 
 
 
@@ -39,16 +44,25 @@ public class LoginMenu {
     public void save()
     {
         try {
-            Gson gson = new Gson();
-            FileWriter writer = new FileWriter("src/main/resources/users.json");
+            /*Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Writer writer = Files.newBufferedWriter(Path.of("src/main/resources/users.json"));
 
             if (users != null && users.size() != 0) {
-                gson.toJson(users, writer);
+                gson.toJson("mamad hasan", writer);
             }
             else {
+                File oldFile = new File("src/main/resources/users.json");
+                oldFile.delete();
                 File file = new File("src/main/resources/users.json");
-                file.delete();
-            }
+                file.createNewFile();
+            }*/
+
+            Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+            Path userPath = Path.of("src/main/resources/users.json");
+            Writer writer = Files.newBufferedWriter(userPath);
+            gsonBuilder.toJson(users, writer);
+            writer.close();
+
 
             writer.close();
         }
@@ -96,5 +110,12 @@ public class LoginMenu {
         }
 
         return null;
+    }
+
+
+
+    public static ArrayList<User> getUsers()
+    {
+        return users;
     }
 }
