@@ -40,9 +40,9 @@ public class ScoreboardController
 
 
     @FXML
-    private void sortFirstPhase()
+    private void sortEasy()
     {
-        ArrayList<User> users = scoreboard.getSortedFirstPhase();
+        ArrayList<User> users = scoreboard.getSortedEasy();
         ArrayList<Text> texts = new ArrayList<>();
         setTexts(users, texts, 1);
         view.loadUsersText(texts);
@@ -51,9 +51,9 @@ public class ScoreboardController
 
 
     @FXML
-    private void sortSecondPhase()
+    private void sortNormal()
     {
-        ArrayList<User> users = scoreboard.getSortedSecondPhase();
+        ArrayList<User> users = scoreboard.getSortedNormal();
         ArrayList<Text> texts = new ArrayList<>();
         setTexts(users, texts, 2);
         view.loadUsersText(texts);
@@ -62,13 +62,23 @@ public class ScoreboardController
 
 
     @FXML
-    private void sortThirdPhase()
+    private void sortHard()
     {
-        ArrayList<User> users = scoreboard.getSortedThirdPhase();
+        ArrayList<User> users = scoreboard.getSortedHard();
         ArrayList<Text> texts = new ArrayList<>();
         setTexts(users, texts, 3);
         view.loadUsersText(texts);
+    }
 
+
+
+    @FXML
+    private void sortDevilMode()
+    {
+        ArrayList<User> users = scoreboard.getSortedDevilMode();
+        ArrayList<Text> texts = new ArrayList<>();
+        setTexts(users, texts, 3);
+        view.loadUsersText(texts);
     }
 
 
@@ -95,13 +105,13 @@ public class ScoreboardController
                     scores.add(user.getTotalScore());
                     break;
                 case (1):
-                    scores.add(user.getFirstPhaseScore());
+                    scores.add(user.getEasyScore());
                     break;
                 case (2):
-                    scores.add(user.getSecondPhaseScore());
+                    scores.add(user.getNormalScore());
                     break;
                 case (3):
-                    scores.add(user.getThirdPhaseScore());
+                    scores.add(user.getHardScore());
                     break;
             }
 

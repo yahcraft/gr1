@@ -39,33 +39,44 @@ public class Scoreboard {
 
 
 
-    public ArrayList<User> getSortedFirstPhase()
+    public ArrayList<User> getSortedEasy()
     {
         ArrayList<User> usersSorted = new ArrayList<>(users);
 
-        usersSorted.sort(Comparator.comparing(User::getFirstPhaseScore).thenComparing(User::getTotalScore).thenComparing(User::getUsername));
+        usersSorted.sort(Comparator.comparing(User::getEasyScore).thenComparing(User::getTotalScore).thenComparing(User::getUsername));
 
         return usersSorted;
     }
 
 
 
-    public ArrayList<User> getSortedSecondPhase()
+    public ArrayList<User> getSortedNormal()
     {
         ArrayList<User> usersSorted = new ArrayList<>(users);
 
-        usersSorted.sort(Comparator.comparing(User::getSecondPhaseScore).thenComparing(User::getTotalScore).thenComparing(User::getUsername));
+        usersSorted.sort(Comparator.comparing(User::getNormalScore).thenComparing(User::getTotalScore).thenComparing(User::getUsername));
 
         return usersSorted;
     }
 
 
 
-    public ArrayList<User> getSortedThirdPhase()
+    public ArrayList<User> getSortedHard()
     {
         ArrayList<User> usersSorted = new ArrayList<>(users);
 
-        usersSorted.sort(Comparator.comparing(User::getThirdPhaseScore).thenComparing(User::getTotalScore).thenComparing(User::getUsername));
+        usersSorted.sort(Comparator.comparing(User::getHardScore).thenComparing(User::getTotalScore).thenComparing(User::getUsername));
+
+        return usersSorted;
+    }
+
+
+
+    public ArrayList<User> getSortedDevilMode()
+    {
+        ArrayList<User> usersSorted = new ArrayList<>(users);
+
+        usersSorted.sort(Comparator.comparing(User::getDevilModeScore).thenComparing(User::getTotalScore).thenComparing(User::getUsername));
 
         return usersSorted;
     }

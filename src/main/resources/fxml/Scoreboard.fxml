@@ -18,15 +18,17 @@
             <Image url="@../Textures/Scoreboard/Background.png" />
         </ImageView>
 
-        <Button contentDisplay="CENTER" layoutX="100.0" layoutY="430.0" prefHeight="50.0" prefWidth="300.0"
+        <Button contentDisplay="CENTER" layoutX="50.0" layoutY="430.0"
                 stylesheets="@../CssFiles/Scoreboard.css" text="total" onAction="#sortTotal"/>
-        <Button contentDisplay="CENTER" layoutX="320.0" layoutY="430.0" prefHeight="50.0" prefWidth="300.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="phase 1" onAction="#sortFirstPhase"/>
-        <Button contentDisplay="CENTER" layoutX="540.0" layoutY="430.0" prefHeight="50.0" prefWidth="300.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="phase 2" onAction="#sortSecondPhase"/>
-        <Button contentDisplay="CENTER" layoutX="760.0" layoutY="430.0" prefHeight="50.0" prefWidth="300.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="phase 3" onAction="#sortThirdPhase"/>
-        <Button contentDisplay="CENTER" layoutX="980.0" layoutY="430.0" prefHeight="50.0" prefWidth="300.0"
+        <Button contentDisplay="CENTER" layoutX="250.0" layoutY="430.0"
+                stylesheets="@../CssFiles/Scoreboard.css" text="easy" onAction="#sortEasy"/>
+        <Button contentDisplay="CENTER" layoutX="450.0" layoutY="430.0"
+                stylesheets="@../CssFiles/Scoreboard.css" text="normal" onAction="#sortNormal"/>
+        <Button contentDisplay="CENTER" layoutX="650.0" layoutY="430.0"
+                stylesheets="@../CssFiles/Scoreboard.css" text="hard" onAction="#sortHard"/>
+        <Button contentDisplay="CENTER" layoutX="850.0" layoutY="430.0"
+                stylesheets="@../CssFiles/Scoreboard.css" text="devil mode" onAction="#sortDevilMode"/>
+        <Button contentDisplay="CENTER" layoutX="1050.0" layoutY="430.0"
                 stylesheets="@../CssFiles/Scoreboard.css" text="back" onAction="#back"/>
 
         <ImageView pickOnBounds="true" preserveRatio="true" layoutX="490" layoutY="20">

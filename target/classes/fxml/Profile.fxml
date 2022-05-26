@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.paint.ImagePattern?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Program.Controller.ProfileController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <ImageView pickOnBounds="true" preserveRatio="true" fitWidth="1280" fitHeight="720">
+            <Image url="@../Textures/Profile/Background.png" />
+        </ImageView>
+
+
+        <Circle  layoutX="160" layoutY="160" radius="125" style="-fx-stroke: #909090; -fx-stroke-width: 5" fx:id="imageCircle"/>
+
+        <Button layoutX="310" layoutY="135" prefWidth="150" stylesheets="@../CssFiles/Profile.css" text="random" onMouseClicked="#setNewRandomImage"/>
+
+        <Button layoutX="510" layoutY="135" prefWidth="50" prefHeight="50" fx:id="previousButton"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#nextImage"/>
+        <Button layoutX="720" layoutY="135" prefWidth="50" prefHeight="50" fx:id="nextButton"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#previousImage"/>
+        <Button layoutX="565" layoutY="190" prefWidth="150" fx:id="saveImage" text="save"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#saveImage"/>
+        <Button layoutX="565" layoutY="245" prefWidth="150" fx:id="panel" text="panel"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#openPanel"/>
+
+        <Rectangle pickOnBounds="true" width="150" height="150" layoutX="565" layoutY="35" fx:id="imagePreview"
+                   style="-fx-stroke: #909090; -fx-stroke-width: 2"/>
+    </children>
+
+</AnchorPane>

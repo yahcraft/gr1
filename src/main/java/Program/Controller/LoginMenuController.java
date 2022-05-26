@@ -77,6 +77,7 @@ public class LoginMenuController {
         else {
             User user = new User(username, password);
             menu.addUser(user);
+            menu.save();
             MainMenuController mainMenuController = new MainMenuController(view.getStage(), user);
         }
     }

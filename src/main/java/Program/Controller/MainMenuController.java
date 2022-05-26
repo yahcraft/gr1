@@ -3,6 +3,7 @@ package Program.Controller;
 import Program.Model.MainMenu;
 import Program.Model.User;
 import Program.View.MainMenuView;
+import Program.View.ProfileView;
 import Program.View.ScoreboardView;
 import javafx.stage.Stage;
 
@@ -34,7 +35,7 @@ public class MainMenuController {
 
     public void enterProfile()
     {
-
+        ProfileView profileView = new ProfileView(view.getStage(), menu.getUser());
     }
 
 

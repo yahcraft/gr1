@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "username": "yahya1234",
+    "password": "yahya1234",
+    "easyScore": 0,
+    "normalScore": 0,
+    "hardScore": 0,
+    "devilModeScore": 0,
+    "time": 0,
+    "imagePath": "src\\main\\resources\\profileImages\\bossFace.png"
+  }
+]
