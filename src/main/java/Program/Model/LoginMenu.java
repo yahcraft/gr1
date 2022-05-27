@@ -41,7 +41,7 @@ public class LoginMenu {
 
 
 
-    public void save()
+    public static void save()
     {
         try {
             /*Gson gson = new GsonBuilder().setPrettyPrinting().create();

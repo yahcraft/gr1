@@ -16,6 +16,7 @@ public class User {
     private int devilModeScore;
     private int time;
     private String imagePath;
+    private boolean isProfileCustom;
 
 
 
@@ -41,6 +42,19 @@ public class User {
         File image = images[rand.nextInt(images.length)];
         imagePath = image.getPath();
     }
+
+
+
+    public void setImagePath(String path)
+    {
+        imagePath = path;
+    }
+
+
+    public void setProfileCustom(boolean profileCustom) {
+        isProfileCustom = profileCustom;
+    }
+
 
 
     //getters
@@ -100,5 +114,16 @@ public class User {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public String getImagePath()
+    {
+        return imagePath;
+    }
+
+
+    public boolean isProfileCustom() {
+        return isProfileCustom;
     }
 }

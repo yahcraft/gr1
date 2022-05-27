@@ -35,7 +35,9 @@ public class MainMenuController {
 
     public void enterProfile()
     {
-        ProfileView profileView = new ProfileView(view.getStage(), menu.getUser());
+        if (!menu.getUser().getUsername().equals("guest")) {
+            ProfileView profileView = new ProfileView(view.getStage(), menu.getUser());
+        }
     }
 
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="200.0" prefWidth="500.0">
+
+    <children>
+        <ImageView fitWidth="486" fitHeight="200" preserveRatio="false">
+            <Image url="@../Textures/Profile/Background.png" />
+        </ImageView>
+
+        <Text text="are you sure you want to delete this account?" layoutX="25" layoutY="30" wrappingWidth="490" style="-fx-font-size: 25"/>
+    </children>
+
+</AnchorPane>

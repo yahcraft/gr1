@@ -38,6 +38,7 @@ public class LoginMenuController {
 
         if (menu.isPasswordWrong(username, password)){
             view.showWrongPassword();
+            return;
         }
 
         MainMenuController mainMenuController = new MainMenuController(view.getStage(), menu.getUserFromUsername(username));
@@ -47,14 +48,14 @@ public class LoginMenuController {
 
     private boolean isUsernameFormatInvalid(String username)
     {
-        return !MatchingStrings.USERNAME.matcher(username).matches() || username.length() < 3;
+        return !MatchingStrings.USERNAME.matcher(username).matches() || username.length() < 3 || username.length() > 18;
     }
 
 
 
     private boolean isPasswordFormatInvalid(String password)
     {
-        return !MatchingStrings.PASSWORD.matcher(password).matches() || password.length() < 5 ||
+        return !MatchingStrings.PASSWORD.matcher(password).matches() || password.length() < 5 || password.length() > 18 ||
                 !(Pattern.compile("[a-zA-Z]").matcher(password).find() && Pattern.compile("[0-9]").matcher(password).find());
     }
 

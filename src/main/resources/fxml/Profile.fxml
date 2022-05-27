@@ -11,13 +11,14 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.paint.ImagePattern?>
+<?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Program.Controller.ProfileController"
             prefHeight="400.0" prefWidth="600.0">
 
     <children>
-        <ImageView pickOnBounds="true" preserveRatio="true" fitWidth="1280" fitHeight="720">
+        <ImageView  preserveRatio="true" fitWidth="1280" fitHeight="720">
             <Image url="@../Textures/Profile/Background.png" />
         </ImageView>
 
@@ -27,16 +28,34 @@
         <Button layoutX="310" layoutY="135" prefWidth="150" stylesheets="@../CssFiles/Profile.css" text="random" onMouseClicked="#setNewRandomImage"/>
 
         <Button layoutX="510" layoutY="135" prefWidth="50" prefHeight="50" fx:id="previousButton"
-                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#nextImage"/>
-        <Button layoutX="720" layoutY="135" prefWidth="50" prefHeight="50" fx:id="nextButton"
                 stylesheets="@../CssFiles/Profile.css" onMouseClicked="#previousImage"/>
-        <Button layoutX="565" layoutY="190" prefWidth="150" fx:id="saveImage" text="save"
+        <Button layoutX="720" layoutY="135" prefWidth="50" prefHeight="50" fx:id="nextButton"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#nextImage"/>
+        <Button layoutX="565" layoutY="240" prefWidth="150" fx:id="saveImage" text="save"
                 stylesheets="@../CssFiles/Profile.css" onMouseClicked="#saveImage"/>
-        <Button layoutX="565" layoutY="245" prefWidth="150" fx:id="panel" text="panel"
-                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#openPanel"/>
 
-        <Rectangle pickOnBounds="true" width="150" height="150" layoutX="565" layoutY="35" fx:id="imagePreview"
+        <Rectangle pickOnBounds="true" width="150" height="150" layoutX="565" layoutY="85" fx:id="imagePreview"
                    style="-fx-stroke: #909090; -fx-stroke-width: 2"/>
+
+        <Button layoutY="135" layoutX="890" prefWidth="300" text="choose image"
+                onMouseClicked="#openFileChooser" stylesheets="@../CssFiles/Profile.css"/>
+
+
+        <Text layoutX="80" layoutY="330" wrappingWidth="360" style="-fx-border-width: 300; -fx-font-size: 25; -fx-fill: black" fx:id="username" textOrigin="CENTER"/>
+        <Text layoutX="80" layoutY="390" wrappingWidth="360" style="-fx-border-width: 300; -fx-font-size: 25; -fx-fill: black" fx:id="password" textOrigin="CENTER"/>
+
+        <Button layoutX="490" layoutY="305" prefWidth="300" fx:id="changeUsernameButton" text="change username"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#changeUsername"/>
+        <Button layoutX="490" layoutY="365" prefWidth="300" fx:id="changePasswordButton" text="change password"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#changePassword"/>
+
+
+        <Button layoutX="80" layoutY="435" prefWidth="300" text="delete account"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#getConfirmation"/>
+        <Button layoutX="490" layoutY="435" prefWidth="300" text="logout"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#logout"/>
+        <Button layoutX="880" layoutY="435" prefWidth="300" text="back"
+                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#back"/>
     </children>
 
 </AnchorPane>
