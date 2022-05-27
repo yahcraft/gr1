@@ -44,11 +44,6 @@
         <Text layoutX="80" layoutY="330" wrappingWidth="360" style="-fx-border-width: 300; -fx-font-size: 25; -fx-fill: black" fx:id="username" textOrigin="CENTER"/>
         <Text layoutX="80" layoutY="390" wrappingWidth="360" style="-fx-border-width: 300; -fx-font-size: 25; -fx-fill: black" fx:id="password" textOrigin="CENTER"/>
 
-        <Button layoutX="490" layoutY="305" prefWidth="300" fx:id="changeUsernameButton" text="change username"
-                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#changeUsername"/>
-        <Button layoutX="490" layoutY="365" prefWidth="300" fx:id="changePasswordButton" text="change password"
-                stylesheets="@../CssFiles/Profile.css" onMouseClicked="#changePassword"/>
-
 
         <Button layoutX="80" layoutY="435" prefWidth="300" text="delete account"
                 stylesheets="@../CssFiles/Profile.css" onMouseClicked="#getConfirmation"/>

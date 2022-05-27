@@ -44,6 +44,20 @@ public class Profile {
 
 
 
+    public void changeUsername(String username)
+    {
+        user.setUsername(username);
+    }
+
+
+
+    public void changePassword(String password)
+    {
+        user.setPassword(password);
+    }
+
+
+
     //setters
     private void setPreviewImageNumber()
     {
@@ -165,8 +179,21 @@ public class Profile {
         return null;
     }
 
+
     public User getUser()
     {
         return user;
+    }
+
+
+    public boolean doesUsernameExist(String username)
+    {
+        for (User user: users){
+            if (user.getUsername().equals(username)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 package Program.View;
 
 import Program.Controller.ProfileController;
+import Program.Model.GraphicModels.CustomTextField;
 import Program.Model.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,24 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Objects;
 
 public class ProfileView {
@@ -35,6 +23,10 @@ public class ProfileView {
     Group root;
     Scene scene;
     Stage confirmationStage;
+    Button changeUsernameButton;
+    Button changePasswordButton;
+    CustomTextField usernameField;
+    CustomTextField passwordField;
 
 
 
@@ -60,12 +52,43 @@ public class ProfileView {
 
         controller.initializeController(user, this);
         controller.loadUserImage();
+        loadChangeButtons();
 
         scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/CssFiles/Profile.css").toString());
         stage.setScene(scene);
         stage.show();
     }
 
+    private void loadChangeButtons()
+    {
+        changeUsernameButton = new Button("change username");
+        changeUsernameButton.setLayoutX(490);
+        changeUsernameButton.setLayoutY(305);
+        changeUsernameButton.setPrefWidth(300);
+
+        changeUsernameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                controller.loadUsernameSection();
+            }
+        });
+
+        changePasswordButton = new Button("change password");
+        changePasswordButton.setLayoutX(490);
+        changePasswordButton.setLayoutY(365);
+        changePasswordButton.setPrefWidth(300);
+
+        changePasswordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                controller.loadPasswordSection();
+            }
+        });
+
+        root.getChildren().add(changeUsernameButton);
+        root.getChildren().add(changePasswordButton);
+    }
 
 
     public void getConfirmation(User user)
@@ -141,10 +164,92 @@ public class ProfileView {
 
 
 
+    public void loadUsernameSection()
+    {
+        root.getChildren().remove(changeUsernameButton);
+
+        usernameField = new CustomTextField(490, 305, 300, 50, "new username");
+        Button usernameButton = new Button("save username");
+        usernameButton.setLayoutX(880);
+        usernameButton.setLayoutY(305);
+        usernameButton.setPrefWidth(300);
+
+        usernameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                controller.changeUsername(usernameField);
+            }
+        });
+
+        root.getChildren().add(usernameField.getNode());
+        root.getChildren().add(usernameButton);
+    }
+
+
+
+    public void loadPasswordSection()
+    {
+        root.getChildren().remove(changePasswordButton);
+
+        passwordField = new CustomTextField(490, 365, 300, 50, "new password");
+        Button passwordButton = new Button("save password");
+        passwordButton.setLayoutX(880);
+        passwordButton.setLayoutY(365);
+        passwordButton.setPrefWidth(300);
+
+        passwordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                controller.changePassword(passwordField);
+            }
+        });
+
+        root.getChildren().add(passwordField.getNode());
+        root.getChildren().add(passwordButton);
+    }
+
+
+
     public void cancelDeleting()
     {
         confirmationStage.close();
     }
+
+
+
+    public void showInvalidUsernameFormat()
+    {
+        usernameField.showWarning("invalid username format");
+    }
+
+
+
+    public void showExistingUsername()
+    {
+        usernameField.showWarning("this username already exists");
+    }
+
+
+
+    public void showUsernameChanged()
+    {
+        usernameField.showSuccessful("username changed successfully");
+    }
+
+
+
+    public void showInvalidPasswordFormat()
+    {
+        passwordField.showWarning("invalid password format");
+    }
+
+
+
+    public void showPasswordChanged()
+    {
+        passwordField.showSuccessful("password changed successfully");
+    }
+
 
 
     public Stage getStage()

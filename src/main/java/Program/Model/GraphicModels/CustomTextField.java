@@ -92,4 +92,13 @@ public class CustomTextField {
         textField.setText("");
         textField.setStyle("-fx-prompt-text-fill: red");
     }
+
+
+
+    public void showSuccessful(String successMessage)
+    {
+        textField.setPromptText(successMessage);
+        textField.setText("");
+        textField.setStyle("-fx-prompt-text-fill: green");
+    }
 }
