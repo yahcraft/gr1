@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Program.Controller.GameSettingMenuController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <ImageView fitWidth="1280" fitHeight="720">
+            <Image url="@../Textures/GameStartingMenu/Background.png" />
+        </ImageView>
+
+        <Button layoutX="490" layoutY="300" prefWidth="300" text="start game" onMouseClicked="#startGame"
+                stylesheets="@../CssFiles/GameSettingMenu.css" id="startGameButton" />
+        <Button layoutX="490" layoutY="370" prefWidth="300" text="back" onMouseClicked="#back"
+                stylesheets="@../CssFiles/GameSettingMenu.css" id="backButton"/>
+
+        <StackPane layoutX="50" layoutY="50" prefWidth="300" prefHeight="50">
+            <children>
+                <Region style="-fx-fill: transparent; -fx-border-width: 2; -fx-border-color: black; -fx-border-radius: 15" />
+                <Text text="difficulty: " fill="black" style="-fx-font-size: 25"/>
+            </children>
+        </StackPane>
+
+        <Button text="easy" stylesheets="@../CssFiles/GameSettingMenu.css" prefWidth="290" layoutX="25" layoutY="150"
+            onMouseExited="#removeHighlight" onMouseClicked="#changeDifficulty" onMouseEntered="#highlightRectangle" fx:id="easyButton"/>
+        <Button text="normal" stylesheets="@../CssFiles/GameSettingMenu.css" prefWidth="290" layoutX="335" layoutY="150"
+                onMouseExited="#removeHighlight" onMouseClicked="#changeDifficulty" onMouseEntered="#highlightRectangle" fx:id="normalButton"/>
+        <Button text="hard" stylesheets="@../CssFiles/GameSettingMenu.css" prefWidth="290" layoutX="645" layoutY="150"
+                onMouseExited="#removeHighlight" onMouseClicked="#changeDifficulty" onMouseEntered="#highlightRectangle" fx:id="hardButton"/>
+        <Button text="devil mode" stylesheets="@../CssFiles/GameSettingMenu.css" prefWidth="290" layoutX="955" layoutY="150"
+                onMouseExited="#removeHighlight" onMouseClicked="#changeDifficulty" onMouseEntered="#highlightRectangle" fx:id="devilModeButton"/>
+
+
+        <!--<StackPane layoutX="325" layoutY="150" prefWidth="300" prefHeight="50">
+            <children>
+                <Rectangle fill="black" style="-fx-arc-width: 25; -fx-arc-height: 25;" width="300" height="50"
+                           onMouseEntered="#highlightRectangle" onMouseExited="#removeHighlight"/>
+                <Text text="normal" fill="white" style="-fx-font-size: 25"/>
+            </children>
+        </StackPane>
+        <StackPane layoutX="645" layoutY="150" prefWidth="300" prefHeight="50">
+            <children>
+                <Rectangle fill="black" style="-fx-arc-width: 25; -fx-arc-height: 25;" width="300" height="50"
+                           onMouseEntered="#highlightRectangle" onMouseExited="#removeHighlight"/>
+                <Text text="hard" fill="white" style="-fx-font-size: 25"/>
+            </children>
+        </StackPane>
+        <StackPane layoutX="965" layoutY="150" prefWidth="300" prefHeight="50">
+            <children>
+                <Rectangle fill="black" style="-fx-arc-width: 25; -fx-arc-height: 25;" width="300" height="50"
+                           onMouseEntered="#highlightRectangle" onMouseExited="#removeHighlight"/>
+                <Text text="devil mode" fill="white" style="-fx-font-size: 25"/>
+            </children>
+        </StackPane>-->
+    </children>
+
+</AnchorPane>

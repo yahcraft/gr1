@@ -182,7 +182,7 @@ public class ProfileController {
 
     private boolean isUsernameFormatInvalid(String username)
     {
-        return !MatchingStrings.USERNAME.matcher(username).matches() || username.length() < 3 || username.length() > 18;
+        return !MatchingStrings.USERNAME.matcher(username).matches() || username.length() < 3 || username.length() > 15;
     }
 
 

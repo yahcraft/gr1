@@ -31,10 +31,10 @@
         <Button contentDisplay="CENTER" layoutX="1050.0" layoutY="430.0"
                 stylesheets="@../CssFiles/Scoreboard.css" text="back" onAction="#back"/>
 
-        <ImageView pickOnBounds="true" preserveRatio="true" layoutX="490" layoutY="20">
+        <ImageView pickOnBounds="true" preserveRatio="true" layoutX="390" layoutY="20">
             <Image url="@../Textures/Scoreboard/gold.png" />
         </ImageView>
-        <ImageView pickOnBounds="true" preserveRatio="true" layoutX="325" layoutY="80">
+        <ImageView pickOnBounds="true" preserveRatio="true" layoutX="225" layoutY="80">
             <Image url="@../Textures/Scoreboard/silver.png" />
         </ImageView>
         <ImageView pickOnBounds="true" preserveRatio="true" layoutX="655" layoutY="80">

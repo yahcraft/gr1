@@ -124,7 +124,7 @@ public class ScoreboardController
             texts.get(i).setText((i + 1) + "_ " + users.get(i).getUsername() + " score: " + scores.get(i));
 
             if ((users.size() > i + 1 && scores.get(i + 1).equals(scores.get(i))) || (i != 0 && scores.get(i - 1).equals(scores.get(i)))){
-                texts.get(i).setText(texts.get(i).toString() + " time: " + times.get(i));
+                texts.get(i).setText((i + 1) + "_ " + users.get(i).getUsername() + " score: " + scores.get(i) + " time: " + times.get(i));
             }
         }
 

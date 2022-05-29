@@ -2,6 +2,7 @@ module q1 {
     requires javafx.graphics;
     requires javafx.fxml;
     requires javafx.controls;
+    requires javafx.media;
     requires com.google.gson;
 
     opens Program.Model to com.google.gson;
@@ -9,7 +10,7 @@ module q1 {
     exports Program.Controller;
     opens Program.Controller to javafx.fxml;
     exports Program.View;
-    opens Program.View to javafx.fxml;
     exports Program;
     opens Program to javafx.fxml;
+    opens Program.View to com.google.gson, javafx.fxml;
 }

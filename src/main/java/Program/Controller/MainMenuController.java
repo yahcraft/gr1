@@ -2,6 +2,7 @@ package Program.Controller;
 
 import Program.Model.MainMenu;
 import Program.Model.User;
+import Program.View.GameSettingMenuView;
 import Program.View.MainMenuView;
 import Program.View.ProfileView;
 import Program.View.ScoreboardView;
@@ -28,7 +29,7 @@ public class MainMenuController {
 
     public void statNewGame()
     {
-
+        GameSettingMenuView gameSettingMenuView = new GameSettingMenuView(view.getStage(), menu.getUser());
     }
 
 

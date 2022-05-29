@@ -71,17 +71,17 @@ public class ScoreboardView {
     {
         this.texts = newtexts;
 
-        texts.get(0).setLayoutX(490 + 5);
+        texts.get(0).setLayoutX(390 + 5);
         texts.get(0).setLayoutY(20 + 30);
-        texts.get(0).setStyle("-fx-pref-width: 300; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: #ffae00");
+        texts.get(0).setStyle("-fx-pref-width: 400; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: #ffae00");
 
-        texts.get(1).setLayoutX(325 + 5);
+        texts.get(1).setLayoutX(225 + 5);
         texts.get(1).setLayoutY(80 + 30);
-        texts.get(1).setStyle("-fx-pref-width: 300; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: #9c9c9c");
+        texts.get(1).setStyle("-fx-pref-width: 400; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: #9c9c9c");
 
         texts.get(2).setLayoutX(655 + 5);
         texts.get(2).setLayoutY(80 + 30);
-        texts.get(2).setStyle("-fx-pref-width: 300; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: #a04b00");
+        texts.get(2).setStyle("-fx-pref-width: 400; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: #a04b00");
 
         loadNormalTexts(texts);
     }
@@ -91,9 +91,9 @@ public class ScoreboardView {
     private void loadNormalTexts(ArrayList<Text> texts)
     {
         for (int i = 3; i < 10; i++){
-            texts.get(i).setLayoutX(655 - i % 2 * (300 + 30) + 5);
+            texts.get(i).setLayoutX(655 - i % 2 * (400 + 30) + 5);
             texts.get(i).setLayoutY(170 + (i - 3) / 2 * (50 + 10) + 30);
-            texts.get(i).setStyle("-fx-pref-width: 300; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: White");
+            texts.get(i).setStyle("-fx-pref-width: 400; -fx-pref-height: 50; -fx-font-size: 25; -fx-fill: White");
         }
 
         texts.get(9).setLayoutX(490);
