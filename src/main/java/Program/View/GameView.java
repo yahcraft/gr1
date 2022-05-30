@@ -1,10 +1,7 @@
 package Program.View;
 
 import Program.Controller.GameController;
-import Program.Model.GraphicModels.Bomb;
-import Program.Model.GraphicModels.Bullet;
-import Program.Model.GraphicModels.CupHead;
-import Program.Model.GraphicModels.FirstBoss;
+import Program.Model.GraphicModels.*;
 import Program.Model.User;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -26,6 +23,7 @@ public class GameView {
     private FirstBoss firstBoss;
     private ArrayList<Bullet> bullets;
     private ArrayList<Bomb> bombs;
+    private ArrayList<Egg> eggs;
     private AudioClip music;
     private boolean isDevilMode;
     private int difficulty;
@@ -47,7 +45,8 @@ public class GameView {
 
         setBackGround();
 
-        cupHead = new CupHead(this);
+        eggs = new ArrayList<>();
+        cupHead = new CupHead(this, root);
         firstBoss = new FirstBoss(this, root);
         bullets = new ArrayList<>();
         bombs = new ArrayList<>();
@@ -147,11 +146,17 @@ public class GameView {
 
 
 
+    public void addEgg(Egg egg)
+    {
+        eggs.add(egg);
+    }
+
+
+
     //getters
     public ArrayList<Bullet> getBullets() {
         return bullets;
     }
-
 
 
     public ArrayList<Bomb> getBombs() {
@@ -159,9 +164,19 @@ public class GameView {
     }
 
 
-
     public int getDifficulty()
     {
         return difficulty;
+    }
+
+
+    public ArrayList<Egg> getEggs()
+    {
+        return eggs;
+    }
+
+    public FirstBoss getFirstBoss()
+    {
+        return firstBoss;
     }
 }

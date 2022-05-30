@@ -7,21 +7,28 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CupHead {
     private GameView view;
     private ImageView cupHead;
-    private Rectangle collisionRectangle1;
-    private Rectangle collisionRectangle2;
+    private ArrayList<Rectangle> hitBoxes;
     private int ds;
     private boolean isGoingUp;
     private boolean isGoingDown;
@@ -35,6 +42,17 @@ public class CupHead {
     private int imageNumber;
     private AudioClip bulletSound;
     private AudioClip bombSound;
+    private AudioClip takingDamageSound;
+    private boolean wasHitRecently;
+    private int health;
+    private int explosionImageNumber;
+    private ArrayList<Image> images;
+    private ArrayList<Image> explosionImages;
+    private ImageView explosionOverlay;
+    private Group root;
+    private ImageView healthBar;
+    private Text healthNumber;
+    private ImageView attackIcon;
 
 
 
@@ -42,17 +60,24 @@ public class CupHead {
 
 
     ////methods////
-    public CupHead(GameView view)
+    public CupHead(GameView view, Group root)
     {
+        this.root = root;
         this.view = view;
+        health = 12;
         ds = 20;
         timeUntilNextShoot = 20;
         loadSounds();
+        loadImages();
 
         cupHead = new ImageView(Objects.requireNonNull(getClass().getResource("/Textures/Game/cupHead0.png")).toString());
         cupHead.setY(300);
+        cupHead.setX(0);
         cupHead.setFitWidth(110);
         cupHead.setFitHeight(90);
+
+        initializeHealthLabelAndIcon();
+        initializeHitBox();
 
 
         cupHead.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -75,6 +100,7 @@ public class CupHead {
                 moveCupHead();
                 checkShoot();
                 changeImage();
+                checkHitBox();
             }
         }));
 
@@ -86,10 +112,71 @@ public class CupHead {
 
 
 
+    private void initializeHealthLabelAndIcon()
+    {
+        healthBar = new ImageView(Objects.requireNonNull(getClass().getResource("/Textures/Game/health.png")).toString());
+        healthBar.setY(5);
+        healthBar.setX(5);
+        root.getChildren().add(healthBar);
+
+        healthNumber = new Text(18, 25,  "HP: " + health);
+        root.getChildren().add(healthNumber);
+
+        attackIcon = new ImageView(Objects.requireNonNull(getClass().getResource("/Textures/Game/bulletIcon.png")).toString());
+        attackIcon.setX(80);
+        attackIcon.setY(0);
+        attackIcon.setFitWidth(40);
+        attackIcon.setFitHeight(40);
+        root.getChildren().add(attackIcon);
+    }
+
+
+
     private void loadSounds()
     {
         bulletSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/Sounds/shooting.mp3")).toString());
         bombSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/Sounds/bomb.mp3")).toString());
+        takingDamageSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/Sounds/takingDamage.wav")).toString());
+    }
+
+
+
+    private void initializeHitBox()
+    {
+        hitBoxes = new ArrayList<>();
+
+        Rectangle front = new Rectangle(cupHead.getX() + 33, cupHead.getY() + 29, 75, 60);
+        Rectangle back = new Rectangle(cupHead.getX() + 3, cupHead.getY() + 40, 30, 35);
+        Rectangle head = new Rectangle(cupHead.getX() + 20, cupHead.getY() + 2, 65, 35);
+
+        hitBoxes.add(front);
+        hitBoxes.add(back);
+        hitBoxes.add(head);
+    }
+
+
+
+    private void loadImages()
+    {
+        images = new ArrayList<>();
+        explosionImages = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            images.add(new Image(Objects.requireNonNull(getClass().getResource("/Textures/Game/cupHead" + imageNumber + ".png")).toString()));
+        }
+
+        File[] explosionImageFiles = new File("src/main/resources/Textures/Game/PlaneDamage/").listFiles();
+        explosionImageNumber = 0;
+
+        for (File imageFile: explosionImageFiles){
+            try {
+                explosionImages.add(new Image(new FileInputStream(imageFile.getPath())));
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 
@@ -100,7 +187,7 @@ public class CupHead {
 
         imageNumber -= (imageNumber / 3 * 3); //makes it so the image number will loop between 0 and 2
 
-        cupHead.setImage(new Image(Objects.requireNonNull(getClass().getResource("/Textures/Game/cupHead" + imageNumber + ".png")).toString()));
+        cupHead.setImage(images.get(imageNumber));
     }
 
 
@@ -169,6 +256,11 @@ public class CupHead {
     {
         cupHead.setX(cupHead.getX() + deltaX / 5);
         cupHead.setY(cupHead.getY() + deltaY / 5);
+
+        for (Rectangle hitBox: hitBoxes){
+            hitBox.setX(hitBox.getX() + deltaX / 5);
+            hitBox.setY(hitBox.getY() + deltaY / 5);
+        }
     }
 
 
@@ -193,6 +285,13 @@ public class CupHead {
         }
         else if (keyEvent.getCode().equals(KeyCode.TAB)){
             isOnBomb = !isOnBomb;
+
+            if (isOnBomb){
+                attackIcon.setImage(new Image(Objects.requireNonNull(getClass().getResource("/Textures/Game/bombIcon.png")).toString()));
+            }
+            else {
+                attackIcon.setImage(new Image(Objects.requireNonNull(getClass().getResource("/Textures/Game/bulletIcon.png")).toString()));
+            }
         }
     }
 
@@ -226,6 +325,104 @@ public class CupHead {
             view.addBullet(cupHead.getX(), cupHead.getY());
             timeUntilNextShoot = 20;
         }
+    }
+
+
+
+    private void checkHitBox()
+    {
+        if (wasHitRecently){
+            return;
+        }
+
+        ArrayList<Egg> eggs = view.getEggs();
+        FirstBoss firstBoss = view.getFirstBoss();
+
+        for (Rectangle hitBox: hitBoxes) {
+            for (Egg egg : eggs) {
+                if (!egg.isHit() && !wasHitRecently && egg.getHitBox().getBoundsInParent().intersects(hitBox.getBoundsInParent())) {
+                    health -= view.getDifficulty(); // -> makes it so cupHead loses 1 hp in easy, 2 in normal and 3 in hard and devil mode
+                    egg.hit();
+                    startHitAnimation();
+                }
+            }
+
+
+            for (Rectangle bossHitBox: firstBoss.getHitBoxes()){
+                if (!wasHitRecently && bossHitBox.getBoundsInParent().intersects(hitBox.getBoundsInParent())) {
+                    health -= view.getDifficulty(); // -> makes it so cupHead loses 1 hp in easy, 2 in normal and 3 in hard and devil mode
+                    startHitAnimation();
+                }
+            }
+        }
+    }
+
+
+
+    private void startHitAnimation()
+    {
+        wasHitRecently = true;
+        takingDamageSound.play();
+        takingDamageSound.setVolume(1);
+
+        healthNumber.setText("HP: " + health);
+
+        explosionOverlay = new ImageView();
+        explosionOverlay.setX(cupHead.getX() + cupHead.getFitWidth() / 2 - explosionImages.get(0).getWidth() / 2);
+        explosionOverlay.setY(cupHead.getY() + cupHead.getFitHeight() / 2 - explosionImages.get(0).getHeight() / 2);
+
+        Timeline explosionTimeline = new Timeline(new KeyFrame(Duration.millis(62), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                updateExplosionOverlayImage();
+            }
+        }));
+
+        explosionTimeline.setCycleCount(explosionImages.size() + 1);
+        root.getChildren().add(explosionOverlay);
+        explosionTimeline.play();
+
+        Timeline hitTimeline = new Timeline(new KeyFrame(Duration.millis(300), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ColorAdjust effect = new ColorAdjust();
+                effect.setBrightness(-0.75);
+
+                cupHead.setEffect(effect);
+
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        cupHead.setEffect(null);
+                    }
+                }, 150);
+                }
+        }));
+
+        hitTimeline.setCycleCount(5);
+
+        hitTimeline.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                wasHitRecently = false;
+            }
+        });
+
+        hitTimeline.play();
+    }
+
+
+
+    private void updateExplosionOverlayImage()
+    {
+        if (explosionImageNumber == explosionImages.size()){
+            root.getChildren().remove(explosionOverlay);
+            explosionImageNumber = 0;
+        }
+
+        explosionOverlay.setImage(explosionImages.get(explosionImageNumber));
+        explosionImageNumber++;
     }
 
 

@@ -129,6 +129,7 @@ public class Bullet {
     {
         if (bullet.getX() > 1280){
             root.getChildren().remove(bullet);
+            view.getBullets().remove(this);
             timeline.stop();
         }
     }
@@ -179,6 +180,7 @@ public class Bullet {
         if (explosionImageNumber == images.size()){
             root.getChildren().remove(bullet);
             timeline.stop();
+            view.getBullets().remove(this);
             return;
         }
 

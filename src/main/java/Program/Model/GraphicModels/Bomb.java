@@ -137,6 +137,7 @@ public class Bomb {
     {
         if (bomb.getX() > 1280 || bomb.getY() > 720){
             root.getChildren().remove(bomb);
+            view.getBombs().remove(this);
             timeline.stop();
         }
     }
@@ -186,6 +187,7 @@ public class Bomb {
         if (explosionImageNumber == images.size()){
             root.getChildren().remove(bomb);
             timeline.stop();
+            view.getBombs().remove(this);
             return;
         }
 

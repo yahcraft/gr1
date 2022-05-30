@@ -190,7 +190,7 @@ public class FirstBoss {
             imageNumber++;
 
             if (imageNumber == attackingImages.size() - 1){
-                Egg egg = new Egg(boss.getX(), boss.getY() + boss.getFitWidth() / 2, root);
+                Egg egg = new Egg(boss.getX(), boss.getY() + boss.getFitWidth() / 2, root, view);
             }
 
             if (imageNumber == attackingImages.size()){
@@ -300,5 +300,10 @@ public class FirstBoss {
                 boss.setEffect(null);
             }
         }, 80);
+    }
+
+    public ArrayList<Rectangle> getHitBoxes()
+    {
+        return this.hitBoxes;
     }
 }
