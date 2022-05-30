@@ -7,50 +7,79 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Egg
-{
+public class MiniBoss {
     private GameView view;
     private Group root;
-    private ImageView egg;
+    private ImageView miniboss;
     private Circle hitBox;
-    private int theta;
     private Timeline timeline;
     private int speed;
     private boolean isHit;
     private int healthRemaining;
+    private int mainY;
+    private ArrayList<Image> images;
+    private int imageNumber;
+    private int timeUntilImageChange;
 
 
 
 
 
     ////methods////
-    public Egg(double x, double y, Group root, GameView view)
+    public MiniBoss(double x, double y, Group root, GameView view, String color)
     {
-        speed = 10;
+        speed = 5;
+        mainY = (int) y;
         this.view = view;
-        view.addEgg(this);
+        view.addMiniBoss(this);
         healthRemaining = 2;
-
         this.root = root;
-        egg = new ImageView(String.valueOf(getClass().getResource("/Textures/Game/egg.png")));
-        egg.setFitWidth(136);
-        egg.setFitHeight(116);
-        egg.setX(x);
-        egg.setY(y - egg.getFitWidth() / 2);
-        root.getChildren().add(egg);
+        timeUntilImageChange = 3;
 
-        hitBox = new Circle(10 + 66 + egg.getX(), egg.getY() + 66, 66);
+        loadImages(color);
+
+        miniboss.setFitWidth(136);
+        miniboss.setFitHeight(116);
+        miniboss.setX(x);
+        miniboss.setY(y - miniboss.getFitWidth() / 2);
+        root.getChildren().add(miniboss);
+
+        hitBox = new Circle(10 + 66 + miniboss.getX(), miniboss.getY() + 66, 66);
+
 
         showAnimation();
+    }
+
+
+
+    private void loadImages(String color)
+    {
+        images = new ArrayList<>();
+        miniboss = new ImageView();
+        File[] directory = new File("src/main/resources/Textures/Game/" + color + "MiniBosses/").listFiles();
+
+        for (File imageFile: directory){
+            try {
+                images.add(new Image(new FileInputStream(imageFile)));
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        miniboss.setImage(images.get(0));
     }
 
 
@@ -61,6 +90,7 @@ public class Egg
             @Override
             public void handle(ActionEvent event) {
                 move();
+                manageAnimation();
                 checkHitBox();
             }
         }));
@@ -74,18 +104,36 @@ public class Egg
 
     private void move()
     {
-        egg.setX(egg.getX() - speed);
+        miniboss.setX(miniboss.getX() - speed);
         hitBox.setCenterX(hitBox.getCenterX() - speed);
-        egg.setRotate(theta);
-        theta += 5;
 
-        if (egg.getX() < -60){
-            root.getChildren().remove(egg);
+        miniboss.setY(mainY + 20 * Math.sin(Math.toRadians((1280 - miniboss.getX()))));
+
+        if (miniboss.getX() < -60){
+            root.getChildren().remove(miniboss);
             timeline.stop();
-            view.getEggs().remove(this);
+            view.getMiniBosses().remove(this);
         }
     }
 
+
+
+
+    private void manageAnimation()
+    {
+        timeUntilImageChange--;
+
+        if (timeUntilImageChange == 0) {
+            imageNumber++;
+            timeUntilImageChange = 3;
+
+            if (imageNumber == images.size()) {
+                imageNumber = 0;
+            }
+
+            miniboss.setImage(images.get(imageNumber));
+        }
+    }
 
 
 
@@ -113,13 +161,13 @@ public class Egg
     {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0.5);
-        egg.setEffect(colorAdjust);
+        miniboss.setEffect(colorAdjust);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                egg.setEffect(null);
+                miniboss.setEffect(null);
             }
         }, 80);
 
@@ -134,15 +182,15 @@ public class Egg
     public void hit()
     {
         isHit = true;
-        root.getChildren().remove(egg);
+        root.getChildren().remove(miniboss);
         timeline.stop();
-        Egg egg = this;
+        MiniBoss miniBoss = this;
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                view.getEggs().remove(egg);
+                view.getMiniBosses().remove(miniBoss);
             }
         }, 200);
     }
@@ -162,3 +210,4 @@ public class Egg
         return hitBox;
     }
 }
+

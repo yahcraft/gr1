@@ -4,15 +4,21 @@ import Program.Controller.GameController;
 import Program.Model.GraphicModels.*;
 import Program.Model.User;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class GameView {
     private GameController controller;
@@ -25,6 +31,7 @@ public class GameView {
     private ArrayList<Bomb> bombs;
     private ArrayList<Egg> eggs;
     private AudioClip music;
+    ArrayList<MiniBoss> miniBosses;
     private boolean isDevilMode;
     private int difficulty;
 
@@ -50,8 +57,11 @@ public class GameView {
         firstBoss = new FirstBoss(this, root);
         bullets = new ArrayList<>();
         bombs = new ArrayList<>();
+        miniBosses = new ArrayList<>();
 
         root.getChildren().add(cupHead.getNode());
+
+        manageMiniBosses();
 
         loadFrontTrees();
 
@@ -61,6 +71,8 @@ public class GameView {
 
         cupHead.setFocus();
     }
+
+
 
     private void startMusic()
     {
@@ -81,6 +93,48 @@ public class GameView {
 
         Image landImage = new Image(Objects.requireNonNull(getClass().getResource("/Textures/Game/Land.png")).toString());
         initializeBackground(landImage, 4);
+    }
+
+
+
+
+    private void manageMiniBosses()
+    {
+        Random rand = new Random();
+
+
+        Timeline miniBossSpawnerTimeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (rand.nextInt(100) < 6){
+                    spawnMiniBosses();
+                }
+            }
+        }));
+
+        miniBossSpawnerTimeline.setCycleCount(-1);
+        miniBossSpawnerTimeline.play();
+    }
+
+
+
+    private void spawnMiniBosses()
+    {
+        Random rand = new Random();
+        int y = rand.nextInt(600);
+
+        for (int i = 0; i < 3; i++){
+            MiniBoss miniBoss;
+
+            if (i == 2) {
+                miniBoss = new MiniBoss(1280 + i * 125, y, root, this, "pink");
+            }
+            else {
+                miniBoss = new MiniBoss(1280 + i * 125, y, root, this, "yellow");
+            }
+
+            miniBosses.add(miniBoss);
+        }
     }
 
 
@@ -153,6 +207,14 @@ public class GameView {
 
 
 
+
+    public void addMiniBoss(MiniBoss miniBoss)
+    {
+        miniBosses.add(miniBoss);
+    }
+
+
+
     //getters
     public ArrayList<Bullet> getBullets() {
         return bullets;
@@ -178,5 +240,9 @@ public class GameView {
     public FirstBoss getFirstBoss()
     {
         return firstBoss;
+    }
+
+    public ArrayList<MiniBoss> getMiniBosses() {
+        return miniBosses;
     }
 }

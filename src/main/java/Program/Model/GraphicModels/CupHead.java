@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.AudioClip;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -336,6 +337,7 @@ public class CupHead {
         }
 
         ArrayList<Egg> eggs = view.getEggs();
+        ArrayList<MiniBoss> miniBosses = view.getMiniBosses();
         FirstBoss firstBoss = view.getFirstBoss();
 
         for (Rectangle hitBox: hitBoxes) {
@@ -347,10 +349,17 @@ public class CupHead {
                 }
             }
 
-
             for (Rectangle bossHitBox: firstBoss.getHitBoxes()){
                 if (!wasHitRecently && bossHitBox.getBoundsInParent().intersects(hitBox.getBoundsInParent())) {
                     health -= view.getDifficulty(); // -> makes it so cupHead loses 1 hp in easy, 2 in normal and 3 in hard and devil mode
+                    startHitAnimation();
+                }
+            }
+
+            for (MiniBoss minBoss: miniBosses){
+                if (!minBoss.isHit() && !wasHitRecently && minBoss.getHitBox().getBoundsInParent().intersects(hitBox.getBoundsInParent())) {
+                    health -= view.getDifficulty(); // -> makes it so cupHead loses 1 hp in easy, 2 in normal and 3 in hard and devil mode
+                    minBoss.hit();
                     startHitAnimation();
                 }
             }
