@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Program.Controller.LostMenuController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <ImageView x="348" y="30">
+            <Image url="@../Textures/WonMenu/background.png" />
+        </ImageView>
+
+        <Button layoutX="560" layoutY="480" onMouseClicked="#restartGame" text="restart" stylesheets="@../CssFiles/GameSettingMenu.css" prefWidth="160"/>
+        <Button layoutX="560" layoutY="560" onMouseClicked="#back" text="main menu" stylesheets="@../CssFiles/GameSettingMenu.css" prefWidth="160"/>
+    </children>
+</AnchorPane>

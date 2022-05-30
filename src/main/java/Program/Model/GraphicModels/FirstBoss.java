@@ -15,6 +15,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -43,6 +44,9 @@ public class FirstBoss {
     private Image healthBarOriginalImage;
     private ImageView healthBar;
     private Label healthLabel;
+    private AudioClip attackSound;
+    Timeline timeline;
+
 
 
 
@@ -70,7 +74,7 @@ public class FirstBoss {
 
         root.getChildren().add(boss);
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(75), new EventHandler<ActionEvent>() {
+        timeline = new Timeline(new KeyFrame(Duration.millis(75), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 loadAnimation();
@@ -119,6 +123,9 @@ public class FirstBoss {
                 e.printStackTrace();
             }
         }
+
+
+        attackSound = new AudioClip(String.valueOf(getClass().getResource("/Sounds/firstBossAttack.wav")));
     }
 
 
@@ -193,6 +200,10 @@ public class FirstBoss {
                 Egg egg = new Egg(boss.getX(), boss.getY() + boss.getFitWidth() / 2, root, view);
             }
 
+            if (imageNumber == attackingImages.size() / 2){
+                attackSound.play();
+            }
+
             if (imageNumber == attackingImages.size()){
                 imageNumber = 0;
                 numberOfAttacksLeft--;
@@ -217,11 +228,13 @@ public class FirstBoss {
 
     private void manageHealth()
     {
-        PixelReader reader = healthBarOriginalImage.getPixelReader();
-        WritableImage newImage = new WritableImage(reader, health / 20, 30);
-        healthBar.setImage(newImage);
-        healthBar.setFitWidth(health / 20);
-        healthLabel.setText(String.valueOf(health));
+        if (health >= 20) {
+            PixelReader reader = healthBarOriginalImage.getPixelReader();
+            WritableImage newImage = new WritableImage(reader, health / 20, 30);
+            healthBar.setImage(newImage);
+            healthBar.setFitWidth(health / 20);
+            healthLabel.setText(String.valueOf(health));
+        }
     }
 
 
@@ -256,6 +269,10 @@ public class FirstBoss {
 
             isAttacking = rand.nextInt(100) < 2;
             numberOfAttacksLeft = rand.nextInt(3) + 1;
+
+            if (isAttacking){
+                imageNumber = 0;
+            }
         }
     }
 
@@ -282,6 +299,11 @@ public class FirstBoss {
                     startHitAnimation();
                 }
             }
+
+            if (health <= 0){
+                timeline.stop();
+                view.showPlayerWon();
+            }
         }
     }
 
@@ -302,8 +324,22 @@ public class FirstBoss {
         }, 80);
     }
 
+
+
+    public void stop()
+    {
+        timeline.stop();
+    }
+
     public ArrayList<Rectangle> getHitBoxes()
     {
         return this.hitBoxes;
+    }
+
+
+
+    public int getHealth()
+    {
+        return health;
     }
 }

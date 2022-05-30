@@ -54,6 +54,7 @@ public class CupHead {
     private ImageView healthBar;
     private Text healthNumber;
     private ImageView attackIcon;
+    Timeline timeline;
 
 
 
@@ -94,7 +95,7 @@ public class CupHead {
             }
         });
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
+        timeline = new Timeline(new KeyFrame(Duration.millis(10), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 manageMovement();
@@ -344,6 +345,12 @@ public class CupHead {
             for (Egg egg : eggs) {
                 if (!egg.isHit() && !wasHitRecently && egg.getHitBox().getBoundsInParent().intersects(hitBox.getBoundsInParent())) {
                     health -= view.getDifficulty(); // -> makes it so cupHead loses 1 hp in easy, 2 in normal and 3 in hard and devil mode
+
+                    if (health <= 0){
+                        timeline.stop();
+                        view.showPlayerLost();
+                    }
+
                     egg.hit();
                     startHitAnimation();
                 }
@@ -352,6 +359,12 @@ public class CupHead {
             for (Rectangle bossHitBox: firstBoss.getHitBoxes()){
                 if (!wasHitRecently && bossHitBox.getBoundsInParent().intersects(hitBox.getBoundsInParent())) {
                     health -= view.getDifficulty(); // -> makes it so cupHead loses 1 hp in easy, 2 in normal and 3 in hard and devil mode
+
+                    if (health <= 0){
+                        timeline.stop();
+                        view.showPlayerLost();
+                    }
+
                     startHitAnimation();
                 }
             }
@@ -359,6 +372,12 @@ public class CupHead {
             for (MiniBoss minBoss: miniBosses){
                 if (!minBoss.isHit() && !wasHitRecently && minBoss.getHitBox().getBoundsInParent().intersects(hitBox.getBoundsInParent())) {
                     health -= view.getDifficulty(); // -> makes it so cupHead loses 1 hp in easy, 2 in normal and 3 in hard and devil mode
+
+                    if (health <= 0){
+                        timeline.stop();
+                        view.showPlayerLost();
+                    }
+
                     minBoss.hit();
                     startHitAnimation();
                 }
@@ -436,6 +455,13 @@ public class CupHead {
 
 
 
+    public void stop()
+    {
+        timeline.stop();
+    }
+
+
+
     //setters
     public void setFocus()
     {
@@ -449,5 +475,9 @@ public class CupHead {
         Group group = new Group();
         group.getChildren().add(cupHead);
         return group;
+    }
+
+    public int getHealth() {
+        return health;
     }
 }

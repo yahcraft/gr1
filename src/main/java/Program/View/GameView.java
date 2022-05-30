@@ -19,6 +19,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Timer;
 
 public class GameView {
     private GameController controller;
@@ -34,6 +35,8 @@ public class GameView {
     ArrayList<MiniBoss> miniBosses;
     private boolean isDevilMode;
     private int difficulty;
+    private Timeline miniBossSpawnerTimeline;
+    private long startTime;
 
 
 
@@ -69,6 +72,8 @@ public class GameView {
         stage.setScene(scene);
         stage.show();
 
+        startTime = System.currentTimeMillis();
+
         cupHead.setFocus();
     }
 
@@ -103,7 +108,7 @@ public class GameView {
         Random rand = new Random();
 
 
-        Timeline miniBossSpawnerTimeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
+        miniBossSpawnerTimeline = new Timeline(new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (rand.nextInt(100) < 6){
@@ -215,6 +220,29 @@ public class GameView {
 
 
 
+    public void showPlayerLost()
+    {
+        Image background = scene.snapshot(null);
+        firstBoss.stop();
+        miniBossSpawnerTimeline.stop();
+        int time = (int) (System.currentTimeMillis() - startTime);
+        music.stop();
+        LostMenuView lostMenuView = new LostMenuView(stage, controller.getUser(),  time, 1, background, difficulty, isDevilMode, (double) (8000 - firstBoss.getHealth()) / 8000);
+    }
+
+
+
+    public void showPlayerWon()
+    {
+        miniBossSpawnerTimeline.stop();
+        cupHead.stop();
+        int time = (int) (System.currentTimeMillis() - startTime);
+        music.stop();
+        WonGameView lostMenuView = new WonGameView(stage, controller.getUser(),  time, difficulty, isDevilMode, cupHead.getHealth());
+    }
+
+
+
     //getters
     public ArrayList<Bullet> getBullets() {
         return bullets;
@@ -245,4 +273,5 @@ public class GameView {
     public ArrayList<MiniBoss> getMiniBosses() {
         return miniBosses;
     }
+
 }

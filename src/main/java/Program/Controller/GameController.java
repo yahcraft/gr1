@@ -18,4 +18,9 @@ public class GameController {
         game = new Game(user);
         this.view = gameView;
     }
+
+    public User getUser()
+    {
+        return game.getUser();
+    }
 }

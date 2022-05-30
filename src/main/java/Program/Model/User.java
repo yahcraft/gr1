@@ -70,6 +70,21 @@ public class User {
 
 
 
+    public void setTotalScore(int score)
+    {
+        normalScore = score;
+    }
+
+
+
+    public void setTime(int time)
+    {
+        this.time = time;
+    }
+
+
+
+
     //getters
     public String getUsername() {
         return username;
@@ -139,4 +154,5 @@ public class User {
     public boolean isProfileCustom() {
         return isProfileCustom;
     }
+
 }

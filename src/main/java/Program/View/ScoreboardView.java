@@ -56,10 +56,6 @@ public class ScoreboardView {
             root.getChildren().add(image);
         }
 
-        for (Text text: texts){
-            root.getChildren().add(text);
-        }
-
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -69,6 +65,12 @@ public class ScoreboardView {
 
     public void loadUsersText(ArrayList<Text> newtexts)
     {
+        if (texts != null) {
+            for (Text text : texts) {
+                root.getChildren().remove(text);
+            }
+        }
+
         this.texts = newtexts;
 
         texts.get(0).setLayoutX(390 + 5);
@@ -97,6 +99,10 @@ public class ScoreboardView {
         }
 
         texts.get(9).setLayoutX(490);
+
+        for (Text text: texts){
+            root.getChildren().add(text);
+        }
     }
 
 

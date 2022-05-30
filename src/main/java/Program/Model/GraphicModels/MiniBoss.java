@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -32,6 +33,7 @@ public class MiniBoss {
     private ArrayList<Image> images;
     private int imageNumber;
     private int timeUntilImageChange;
+    private AudioClip deathSound;
 
 
 
@@ -50,13 +52,15 @@ public class MiniBoss {
 
         loadImages(color);
 
+        deathSound = new AudioClip(String.valueOf(getClass().getResource("/Sounds/miniBossDying.wav")));
+
         miniboss.setFitWidth(136);
         miniboss.setFitHeight(116);
         miniboss.setX(x);
         miniboss.setY(y - miniboss.getFitWidth() / 2);
         root.getChildren().add(miniboss);
 
-        hitBox = new Circle(10 + 66 + miniboss.getX(), miniboss.getY() + 66, 66);
+        hitBox = new Circle(90 + miniboss.getX(), miniboss.getY() + 66, 42);
 
 
         showAnimation();
@@ -108,8 +112,9 @@ public class MiniBoss {
         hitBox.setCenterX(hitBox.getCenterX() - speed);
 
         miniboss.setY(mainY + 20 * Math.sin(Math.toRadians((1280 - miniboss.getX()))));
+        hitBox.setCenterY(miniboss.getY() + miniboss.getFitHeight() / 2);
 
-        if (miniboss.getX() < -60){
+        if (miniboss.getX() < -miniboss.getFitWidth()){
             root.getChildren().remove(miniboss);
             timeline.stop();
             view.getMiniBosses().remove(this);
@@ -162,6 +167,7 @@ public class MiniBoss {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0.5);
         miniboss.setEffect(colorAdjust);
+        deathSound.play();
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -192,7 +198,7 @@ public class MiniBoss {
             public void run() {
                 view.getMiniBosses().remove(miniBoss);
             }
-        }, 200);
+        }, 100);
     }
 
 

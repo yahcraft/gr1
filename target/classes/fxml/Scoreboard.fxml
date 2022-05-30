@@ -19,17 +19,17 @@
         </ImageView>
 
         <Button contentDisplay="CENTER" layoutX="50.0" layoutY="430.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="total" onAction="#sortTotal"/>
+                stylesheets="@../CssFiles/Scoreboard.css" text="total" onMouseClicked="#sortTotal"/>
         <Button contentDisplay="CENTER" layoutX="250.0" layoutY="430.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="easy" onAction="#sortEasy"/>
+                stylesheets="@../CssFiles/Scoreboard.css" text="easy" onMouseClicked="#sortEasy"/>
         <Button contentDisplay="CENTER" layoutX="450.0" layoutY="430.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="normal" onAction="#sortNormal"/>
+                stylesheets="@../CssFiles/Scoreboard.css" text="normal" onMouseClicked="#sortNormal"/>
         <Button contentDisplay="CENTER" layoutX="650.0" layoutY="430.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="hard" onAction="#sortHard"/>
+                stylesheets="@../CssFiles/Scoreboard.css" text="hard" onMouseClicked="#sortHard"/>
         <Button contentDisplay="CENTER" layoutX="850.0" layoutY="430.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="devil mode" onAction="#sortDevilMode"/>
+                stylesheets="@../CssFiles/Scoreboard.css" text="devil mode" onMouseClicked="#sortDevilMode"/>
         <Button contentDisplay="CENTER" layoutX="1050.0" layoutY="430.0"
-                stylesheets="@../CssFiles/Scoreboard.css" text="back" onAction="#back"/>
+                stylesheets="@../CssFiles/Scoreboard.css" text="back" onMouseClicked="#back"/>
 
         <ImageView pickOnBounds="true" preserveRatio="true" layoutX="390" layoutY="20">
             <Image url="@../Textures/Scoreboard/gold.png" />

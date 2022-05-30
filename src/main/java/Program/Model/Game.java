@@ -12,4 +12,11 @@ public class Game {
     {
         this.user = user;
     }
+
+
+
+    public User getUser()
+    {
+        return user;
+    }
 }
