@@ -42,7 +42,19 @@ public class GameSettingMenuController {
 
     public void startGame(MouseEvent mouseEvent)
     {
-        GameView gameView = new GameView(view.getStage(), menu.getUser());
+        int difficulty = 0;
+
+        if (selectedDifficulty.equals(easyButton.getText())){
+            difficulty = 1;
+        }
+        else if (selectedDifficulty.equals(normalButton.getText())){
+            difficulty = 2;
+        }
+        else if (selectedDifficulty.equals(hardButton.getText()) || selectedDifficulty.equals(devilModeButton.getText())){
+            difficulty = 3;
+        }
+
+        GameView gameView = new GameView(view.getStage(), menu.getUser(), difficulty, selectedDifficulty.equals(devilModeButton.getText()));
     }
 
 

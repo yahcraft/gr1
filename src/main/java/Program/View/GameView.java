@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameView {
@@ -23,17 +24,24 @@ public class GameView {
     private Group root;
     private CupHead cupHead;
     private FirstBoss firstBoss;
+    private ArrayList<Bullet> bullets;
+    private ArrayList<Bomb> bombs;
     private AudioClip music;
+    private boolean isDevilMode;
+    private int difficulty;
 
 
 
 
 
     ////methods////
-    public GameView(Stage stage, User user)
+    public GameView(Stage stage, User user, int difficulty, boolean isDevilMode)
     {
         this.stage = stage;
         controller = new GameController(user, this);
+        this.isDevilMode = isDevilMode;
+        this.difficulty = difficulty;
+
         root = new Group();
         startMusic();
 
@@ -41,6 +49,8 @@ public class GameView {
 
         cupHead = new CupHead(this);
         firstBoss = new FirstBoss(this, root);
+        bullets = new ArrayList<>();
+        bombs = new ArrayList<>();
 
         root.getChildren().add(cupHead.getNode());
 
@@ -123,13 +133,35 @@ public class GameView {
 
     public void addBomb(double x, double y)
     {
-        Bomb bomb = new Bomb(x, y, root);
+        Bomb bomb = new Bomb(x, y, root, this);
+        bombs.add(bomb);
     }
 
 
 
     public void addBullet(double x, double y)
     {
-        Bullet bullet = new Bullet(x, y, root);
+        Bullet bullet = new Bullet(x, y, root, this);
+        bullets.add(bullet);
+    }
+
+
+
+    //getters
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
+    }
+
+
+
+    public ArrayList<Bomb> getBombs() {
+        return bombs;
+    }
+
+
+
+    public int getDifficulty()
+    {
+        return difficulty;
     }
 }
